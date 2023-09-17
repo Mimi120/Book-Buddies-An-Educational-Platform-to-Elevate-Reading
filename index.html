@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Add custom CSS for styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ADD8E6; /* Light beige background color */
+        }
+
+        #studentForm {
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #recommendations {
+            margin-top: 20px;
+        }
+
+        .chat-container {
+            /* Your styles for chat container */
+        }
+
+        .typing-container {
+            /* Your styles for typing container */
+        }
+
+        /* Add your custom styles for other elements as needed */
+    </style>
+    <title>Book Buddies</title>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <!-- Replace the <h1> element with the BookBuddies logo -->
+    <img src="logo.png" alt="BookBuddies Logo" width="500">
+    
+    <form id="studentForm">
+        <label for="name">Student Name:</label>
+        <input type="text" id="name" required><br>
+
+        <label for="schoolId">School ID:</label>
+        <input type="text" id="schoolId" required><br>
+
+        <label for="genre">Preferred Genre:</label>
+        <input type="text" id="genre" required><br>
+
+        <label for="duration">Reading Duration (in minutes):</label>
+        <input type="number" id="duration" required><br>
+
+        <label for="location">School Location:</label>
+        <input type="text" id="location" required><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="recommendations"></div>
+    <script>
+        // Event listener for form submission
+        document.getElementById('studentForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Get form values
+            const name = document.getElementById('name').value;
+            const schoolId = document.getElementById('schoolId').value;
+            const genre = document.getElementById('genre').value;
+            const duration = document.getElementById('duration').value;
+            const location = document.getElementById('location').value; // Add location input
+
+            // Create a string with the form data
+            const formData = `Student Name: ${name}\nSchool ID: ${schoolId}\nPreferred Genre: ${genre}\nReading Duration (in minutes): ${duration}\nSchool Location: ${location}`;
+
+            // Save the form data to a text file (simplified example)
+            const blob = new Blob([formData], { type: 'text/plain' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'form_data.txt';
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            // Show a submission notification
+            document.getElementById('recommendations').textContent = 'Form data saved successfully!';
+        });
+    </script>
+</body>
+</html>
